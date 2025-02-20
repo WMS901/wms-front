@@ -7,7 +7,7 @@ const Inventory = () => {
   const [productName, setProductName] = useState("");
   const [inputDate, setInputDate] = useState("");
   const navigate = useNavigate();
-  //123123123
+  
   // 재고 데이터 불러오기 (필터 적용)
   const fetchInventory = async () => {
     try {
