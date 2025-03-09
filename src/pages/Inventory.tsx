@@ -7,80 +7,87 @@ const Inventory = () => {
   const [productName, setProductName] = useState("");
   const [inputDate, setInputDate] = useState("");
   const navigate = useNavigate();
-  
-  // 재고 데이터 불러오기 (필터 적용)
+
+  // ✅ 재고 데이터 불러오기
+  useEffect(() => {
+    fetchInventory();
+  }, []);
+
+
+   // ✅ 로그인 체크 코드 제거 또는 주석 처리
+  /*
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.warn("⚠️ 로그인 필요: 로그인 페이지로 이동");
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+      return;
+    }
+  }, [navigate]);
+  */
+ 
   const fetchInventory = async () => {
     try {
-      console.log("🔍 조회 버튼 클릭됨!"); // 🔹 버튼 클릭 확인
-  
-      const token = localStorage.getItem("token");
-      if (!token) {
-        alert("로그인이 필요합니다.");
-        navigate("/login");
-        return;
-      }
-  
+      console.log("🔍 조회 버튼 클릭됨!");
       const queryParams = new URLSearchParams();
-      if (productName) queryParams.append("productName", productName);
-      if (inputDate) queryParams.append("inputDate", inputDate);
-  
-      console.log("디버깅 test API요청:", `http://localhost:5000/api/inventory?${queryParams.toString()}`);
-  
-      const response = await fetch(
-        `http://localhost:5000/api/inventory?${queryParams.toString()}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-  
+      if (productName) queryParams.append("name", productName);
+      if (inputDate) queryParams.append("date", inputDate);
+
+      const apiUrl = `/api/inventory?${queryParams.toString()}`;
+    //const apiUrl = `http://195.168.9.111:1040/api/inventory?${queryParams.toString()}`;
+      console.log("📡 API 요청 URL:", apiUrl);
+      const response = await fetch(apiUrl, { method: "GET" });
+
+      if (!response.ok) {
+        throw new Error("조회 실패");
+      }
+
       const data = await response.json();
-      console.log("API 응답:", data);
-  
-      if (!response.ok) throw new Error(`조회 실패: ${data.message || "알 수 없는 오류"}`);
-  
-      setInventoryData(data);
+      console.log("📥 API 응답 데이터:", data);
+
+      setInventoryData(data.content || []);
     } catch (error) {
-      console.error("🚨 재고 데이터를 불러오는 중 오류 발생:", error);
+      console.error("🚨 오류 발생:", error);
     }
   };
 
-useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    alert("로그인이 필요합니다.");
-    navigate("/login");
-    return;
-  }
-  fetchInventory();
-}, [navigate, productName, inputDate]); // 🔹 필터 변경 시 자동 조회
-
   return (
-    <div className="container">
-      <h1>📦 재고 관리</h1>
+    <div className="layout">
+      {/* ✅ 사이드바 */}
+      <aside className="sidebar">
+        <h2>📦 WMS 메뉴</h2>
+        <ul>
+          <li onClick={() => navigate("/inventory")}>재고 관리</li>
+          <li onClick={() => navigate("/inbound")}>입고 관리</li>
+          <li onClick={() => navigate("/outbound")}>출고 관리</li>
+        </ul>
+      </aside>
 
-      {/* 필터 입력 영역 */}
-      <div className="filter-container">
-        <input
-          type="text"
-          placeholder="상품명 입력"
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
-        />
-        <input
-          type="date"
-          value={inputDate}
-          onChange={(e) => setInputDate(e.target.value)}
-        />
-        <button className="search-btn" onClick={fetchInventory}>
-          📅 조회
-        </button>
-      </div>
+      {/* ✅ 메인 콘텐츠 */}
+      <main className="content">
+        <h1>📦 재고 관리</h1>
 
-      <InventoryTable data={inventoryData} />
+        {/* 필터 입력 */}
+        <div className="filter-container">
+          <input
+            type="text"
+            placeholder="상품명 입력"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+          />
+          <input
+            type="date"
+            value={inputDate}
+            onChange={(e) => setInputDate(e.target.value)}
+          />
+          <button className="search-btn" onClick={fetchInventory}>
+            📅 조회
+          </button>
+        </div>
+
+        <InventoryTable data={inventoryData} />
+      </main>
     </div>
   );
 };

@@ -1,0 +1,44 @@
+/* ✅ Inventory.tsx 전용 스타일 */
+.layout {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  /* ✅ 사이드바 */
+  .sidebar {
+    width: 150px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+  }
+  
+  .sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .sidebar li:hover {
+    background-color: #555;
+  }
+  
+  /* ✅ 메인 컨텐츠 */
+  .content {
+    flex: 1;
+    margin-left: 220px;
+    padding: 20px;
+    text-align: center;
+  }
+  

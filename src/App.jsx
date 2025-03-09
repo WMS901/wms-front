@@ -8,8 +8,9 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* 초기 페이지를 로그인 페이지로 설정 */}
-        <Route path="/" element={<Navigate to="/login" />} />
+        {/* 초기 페이지 설정 */}
+        <Route path="/" element={<Navigate to="/inventory" />} />
+        
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/inventory" element={<Inventory />} />

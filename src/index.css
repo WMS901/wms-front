@@ -5,53 +5,91 @@ body {
   padding: 0;
 }
 
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ✅ 사이드바 */
+.sidebar {
+  width: 200px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  height: 100vh;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.sidebar li:hover {
+  background-color: #555;
+}
+
+/* ✅ 메인 컨텐츠 */
+.content {
+  flex: 1;
+  margin-left: 220px;
+  padding: 20px;
+  text-align: center;
+}
+
 .container {
-  max-width: 500px;
-  margin: 200px auto;
+  max-width: 1000px;
+  margin: auto;
   background: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
 }
 
-h2, h1 {
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 input {
-  width: 90%;
   padding: 10px;
-  margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 button {
-  width: 100%;
   padding: 10px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
-.table-container {
-  max-width: 800px;
-  margin: 50px auto;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+/* ✅ 반응형 테이블 */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
 }
 
-table {
+.inventory-table {
   width: 100%;
   border-collapse: collapse;
 }
@@ -60,38 +98,10 @@ th, td {
   padding: 12px;
   border-bottom: 1px solid #ddd;
   text-align: center;
+  min-width: 120px;
 }
 
 th {
   background-color: #007bff;
   color: white;
-}
-
-.add-btn {
-  display: block;
-  margin: 20px auto;
-  background-color: #28a745;
-}
-
-.add-btn:hover {
-  background-color: #218838;
-}
-
-.edit-btn {
-  background-color: #ffc107;
-  color: black;
-  margin-right: 5px;
-}
-
-.edit-btn:hover {
-  background-color: #e0a800;
-}
-
-.delete-btn {
-  background-color: #dc3545;
-  color: white;
-}
-
-.delete-btn:hover {
-  background-color: #c82333;
 }
