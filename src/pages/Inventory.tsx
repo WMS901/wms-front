@@ -12,7 +12,6 @@ const Inventory = () => {
   useEffect(() => {
     fetchInventory();
   }, []);
-//@@@@@@@@@@@@@@@@@@@@@@@test2
 
    // ✅ 로그인 체크 코드 제거 또는 주석 처리
   /*
