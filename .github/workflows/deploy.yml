@@ -3,7 +3,7 @@ name: WMS Frontend CI
 on:
   push:
     branches:
-      - main_CI/CD  # main_CI/CD 브랜치에서 실행
+      - main_CI_CD  # main_CI_CD 브랜치에서 실행
 
 jobs:
   build-and-test:
