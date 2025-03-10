@@ -1,5 +1,5 @@
 import js from '@eslint/js'
-import * as globals from 'globals'  // ✅ globals import 수정
+import globals from 'globals'  // ✅ globals import 수정
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
@@ -10,7 +10,16 @@ export default [
     files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.default,  // ✅ 여기서 globals.default 사용
+      globals: {
+        window: "readonly",
+        document: "readonly",
+        navigator: "readonly",
+        console: "readonly",
+        setTimeout: "readonly",
+        clearTimeout: "readonly",
+        setInterval: "readonly",
+        clearInterval: "readonly",
+      },  // ✅ 정확한 globals 값 적용
       parserOptions: {
         ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
