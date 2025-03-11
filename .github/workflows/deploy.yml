@@ -31,20 +31,15 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      # S3 업로드
-      - name: Deploy to S3
-        run: |
-          aws s3 sync ./dist s3://wms-frontend-bucket --delete
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-east-1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
-      # CloudFront 캐시 무효화
+      - name: Deploy to S3
+        run: aws s3 sync ./dist s3://wms-frontend-bucket --delete
+
       - name: Invalidate CloudFront Cache
-        run: |
-          aws cloudfront create-invalidation --distribution-id E16RJ4E81QQU4 --paths "/*"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-east-1
+        run: aws cloudfront create-invalidation --distribution-id E16RJ4E81QQU4 --paths "/*"
