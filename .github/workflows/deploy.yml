@@ -1,4 +1,4 @@
-name: WMS Frontend CI
+name: WMS Frontend CI/CD
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main_CI_CD  # main_CI_CD 브랜치에서 실행
 
 jobs:
-  build-and-test:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,3 +30,16 @@ jobs:
 
       - name: Build Project
         run: npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy to S3
+        run: aws s3 sync ./dist s3://wms-frontend-bucket --delete
+
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id E16RJ4E81QQU4 --paths "/*"
