@@ -29,28 +29,34 @@ const Inventory = () => {
  
   const fetchInventory = async () => {
     try {
-      console.log("🔍 조회 버튼 클릭됨!");
-      const queryParams = new URLSearchParams();
-      if (productName) queryParams.append("name", productName);
-      if (inputDate) queryParams.append("date", inputDate);
+        console.log("🔍 조회 버튼 클릭됨!");
 
-      const apiUrl = `/api/inventory?${queryParams.toString()}`;
-    //const apiUrl = `http://195.168.9.111:1040/api/inventory?${queryParams.toString()}`;
-      console.log("📡 API 요청 URL:", apiUrl);
-      const response = await fetch(apiUrl, { method: "GET" });
+        // 쿼리 파라미터 설정
+        const queryParams = new URLSearchParams();
+        if (productName) queryParams.append("name", productName);
+        if (inputDate) queryParams.append("date", inputDate);
 
-      if (!response.ok) {
-        throw new Error("조회 실패");
-      }
+        // API 요청 URL (api.sol-wms.store 사용)
+        const apiUrl = `http://api.sol-wms.store/api/inventory?${queryParams.toString()}`;
+        console.log("📡 API 요청 URL:", apiUrl);
 
-      const data = await response.json();
-      console.log("📥 API 응답 데이터:", data);
+        // API 요청
+        const response = await fetch(apiUrl, { method: "GET" });
 
-      setInventoryData(data.content || []);
+        if (!response.ok) {
+            throw new Error("조회 실패");
+        }
+
+        // JSON 데이터 파싱
+        const data = await response.json();
+        console.log("📥 API 응답 데이터:", data);
+
+        // 상태 업데이트
+        setInventoryData(data.content || []);
     } catch (error) {
-      console.error("🚨 오류 발생:", error);
+        console.error("🚨 오류 발생:", error);
     }
-  };
+};
 
   return (
     <div className="layout">
@@ -66,7 +72,7 @@ const Inventory = () => {
 
       {/* ✅ 메인 콘텐츠 */}
       <main className="content">
-        <h1>📦 재고 관리</h1>
+        <h1>📦 재고 관리TEST</h1>
 
         {/* 필터 입력 */}
         <div className="filter-container">
