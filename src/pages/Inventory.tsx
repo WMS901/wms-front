@@ -35,7 +35,7 @@ const Inventory = () => {
       if (inputDate) queryParams.append("date", inputDate);
 
       // 🚀 HTTP 요청 강제
-      const apiUrl = `http://api.sol-wms.store/api/inventory?${queryParams.toString()}`;
+      const apiUrl = `https://api.sol-wms.store/api/inventory?${queryParams.toString()}`;
       console.log("📡 API 요청 URL:", apiUrl);
       const response = await fetch(apiUrl, {
         method: "GET",
