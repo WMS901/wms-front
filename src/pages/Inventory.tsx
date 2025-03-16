@@ -71,7 +71,7 @@ const Inventory = () => {
 
       {/* ✅ 메인 콘텐츠 */}
       <main className="content">
-        <h1>📦 재고 관리99999</h1>
+        <h1>📦 재고 관리</h1>
 
         {/* 필터 입력 */}
         <div className="filter-container">
