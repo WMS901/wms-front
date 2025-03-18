@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Inventory.css"; // ✅ 스타일 추가
+import "../styles/Inventory.css";
 
 const Inventory = () => {
   const [inventoryData, setInventoryData] = useState([]);
