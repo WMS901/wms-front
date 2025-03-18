@@ -1,55 +1,66 @@
-.outbound-request-container {
-  max-width: 600px;
+/* 출고 요청 폼 전체 컨테이너 */
+.outbound-form-container {
+  max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background: white;
+  background: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.outbound-request-container h1 {
-  font-size: 22px;
+/* 제목 */
+.outbound-form-container h1 {
+  font-size: 24px;
+  color: #333;
   margin-bottom: 20px;
 }
 
-/* ✅ 상품 정보 테이블 스타일 */
-.outbound-info-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+/* 상품 정보 (읽기 전용) */
+.info-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f7f7;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-.outbound-info-table td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
-}
-
-.outbound-info-table td:first-child {
+/* 라벨 스타일 */
+label {
   font-weight: bold;
-  width: 40%;
-  background: #f9f9f9;
+  display: block;
+  text-align: left;
+  margin: 10px 0 5px;
 }
 
-.outbound-request-container input {
-  width: 80%;
+/* 입력 필드 */
+input[type="number"] {
+  width: 100%;
   padding: 10px;
-  margin: 10px 0;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  text-align: center;
+  box-sizing: border-box;
 }
 
-.confirm-btn {
-  background-color: #007bff;
+/* 버튼 스타일 */
+button {
+  width: 100%;
+  background: #007bff;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
 }
 
-.confirm-btn:hover {
-  background-color: #0056b3;
+button:hover {
+  background: #0056b3;
 }

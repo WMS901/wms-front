@@ -14,7 +14,7 @@ const Login = () => {
     setErrorMessage(""); // ✅ 이전 오류 메시지 초기화
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch("/api/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

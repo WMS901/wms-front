@@ -6,7 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:8081", // ✅ 백엔드 서버로 프록시 요청
+        target: "https://api.sol-wms.store",
+        // target: "http://localhost:8081",
         //target: "http://195.168.9.111:1040",
         changeOrigin: true,
         secure: false,

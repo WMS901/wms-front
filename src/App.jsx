@@ -26,7 +26,7 @@ const App = () => {
                 <Route path="/inventory" element={<Inventory />} />
                 <Route path="/inbound" element={<Inbound />} />
                 <Route path="/inbound/new" element={<InboundNew />} />
-                {/* <Route path="/outbound" element={<Outbound />} /> */}
+                <Route path="/outbound" element={<Outbound />} />
                 <Route path="/outbound/:outboundId" element={<OutboundRequest />} />
               </Routes>
             </Layout>

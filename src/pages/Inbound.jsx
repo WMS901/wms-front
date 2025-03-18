@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Inventory.css"; // ✅ 재고 관리와 같은 스타일 적용
-import API_URL from "../config";
 
 const Inbound = () => {
   const [inboundItems, setInboundItems] = useState([]);
@@ -13,7 +12,7 @@ const Inbound = () => {
 
   const fetchInboundItems = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/inbound`);
+      const response = await fetch("/api/inbound");
       if (!response.ok) throw new Error("데이터 불러오기 실패");
   
       const data = await response.json();
@@ -28,7 +27,7 @@ const Inbound = () => {
 
   const confirmInbound = async (sku) => {
     try {
-      const response = await fetch(`${API_URL}/api/inbound/${sku}`, {
+      const response = await fetch("/api/inbound/", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
