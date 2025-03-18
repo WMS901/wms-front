@@ -1,0 +1,82 @@
+/* 📦 Inbound 관리 페이지 스타일 */
+.inbound-container {
+    margin-left: 260px; /* ✅ 사이드바와 간격 조정 */
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  }
+  
+  /* 📌 테이블 스타일 */
+  .inbound-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  /* 📌 테이블 헤더 스타일 */
+  .inbound-table thead {
+    background: #007bff;
+    color: white;
+  }
+  
+  .inbound-table th {
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* 📌 테이블 셀 스타일 */
+  .inbound-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* 📌 테이블 행 스타일 */
+  .inbound-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* 📌 입고 확정 버튼 스타일 */
+  .confirm-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .confirm-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* 📌 체크박스 스타일 */
+  .inbound-table input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  
+  /* 📌 반응형 디자인 */
+  @media (max-width: 1024px) {
+    .inbound-container {
+      margin-left: 200px; /* 작은 화면에서 사이드바 간격 조정 */
+    }
+  
+    .inbound-table th,
+    .inbound-table td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .confirm-button {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+  }
+  

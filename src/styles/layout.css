@@ -1,0 +1,26 @@
+.layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden; /* ✅ 바깥쪽 스크롤 완전히 제거 */
+}
+
+.sidebar {
+  width: 250px; /* ✅ 기본 너비 */
+  transition: width 0.3s ease; /* ✅ 부드럽게 변경 */
+}
+
+.sidebar.collapsed {
+  width: 60px; /* ✅ 접었을 때 너비 */
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 250px; /* ✅ 기본값 */
+  transition: margin-left 0.3s ease; /* ✅ 부드러운 애니메이션 */
+}
+
+.sidebar.collapsed + .content {
+  margin-left: 60px; /* ✅ 사이드바가 닫혔을 때 자동 조정 */
+}

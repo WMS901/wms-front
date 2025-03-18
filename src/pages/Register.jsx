@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../styles/register.css"; // ✅ 스타일 파일 추가
 
 const Register = () => {
   const navigate = useNavigate();
@@ -49,12 +50,11 @@ const Register = () => {
   };
 
   return (
-    <div className="container">
+    <div className="register-container"> {/* ✅ 수정된 클래스명 */}
       <div className="form-box">
         <h2>회원가입</h2>
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
-          <input type="text" name="name" placeholder="이름" required onChange={handleChange} />
           <input type="email" name="email" placeholder="이메일" required onChange={handleChange} />
           <input type="password" name="password" placeholder="비밀번호" required onChange={handleChange} />
           <input type="password" name="confirmPassword" placeholder="비밀번호 확인" required onChange={handleChange} />

@@ -1,44 +1,62 @@
-/* ✅ Inventory.tsx 전용 스타일 */
-.layout {
-    display: flex;
-    min-height: 100vh;
-  }
-  
-  /* ✅ 사이드바 */
-  .sidebar {
-    width: 150px;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    position: fixed;
-    height: 100vh;
-  }
-  
-  .sidebar h2 {
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .sidebar li:hover {
-    background-color: #555;
-  }
-  
-  /* ✅ 메인 컨텐츠 */
-  .content {
-    flex: 1;
-    margin-left: 220px;
-    padding: 20px;
-    text-align: center;
-  }
-  
+.inventory-container {
+  display: flex;
+  justify-content: center; /* ✅ 중앙 정렬 */
+  align-items: flex-start;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f8f9fa;
+  overflow-x: hidden; /* ✅ 바깥 스크롤 제거 */
+}
+
+.inventory-content {
+  width: 100%;
+  max-width: 95vw; /* ✅ 화면 너비의 95%까지 확장 */
+  min-width: 800px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  overflow-x: auto; /* ✅ 내부 테이블 스크롤 가능하도록 */
+}
+
+.table-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto; /* ✅ 테이블이 넘칠 경우 스크롤 추가 */
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.inventory-table th, .inventory-table td {
+  padding: 10px;
+  text-align: center;
+}
+
+.inventory-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.no-data {
+  text-align: center;
+  font-weight: bold;
+  padding: 20px;
+}
+
+.action-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size:15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.action-btn:hover {
+  background-color: #0056b3;
+}

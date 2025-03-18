@@ -1,0 +1,60 @@
+/* ✅ 사이드바 기본 스타일 */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px; /* ✅ 기본 상태에서 버튼만 보이게 */
+    height: 100%;
+    background: #333;
+    color: white;
+    padding: 15px;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+  }
+  
+  /* ✅ 사이드바 확장 시 */
+  .sidebar.expanded {
+    width: 250px; /* ✅ 확장 시 전체 메뉴 보이게 */
+  }
+  
+  /* ✅ 햄버거 버튼 (사이드바 내부에 위치) */
+  .hamburger-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .hamburger-btn:hover {
+    color: #ffcc00;
+  }
+  
+  /* ✅ 사이드바 제목 */
+  .sidebar-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffcc00;
+  }
+  
+  /* ✅ 메뉴 스타일 */
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .sidebar ul li:hover {
+    background: #444;
+  }
+  
