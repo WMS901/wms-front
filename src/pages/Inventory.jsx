@@ -13,7 +13,7 @@ const Inventory = () => {
   const fetchInventory = async () => {
     try {
       console.log("🔍 조회 버튼 클릭됨!");
-      const apiUrl = "/api/inventory";
+      const apiUrl = `${API_BASE_URL}/api/inventory`;
       console.log("📡 API 요청 URL:", apiUrl);
       const response = await fetch(apiUrl, {
         method: "GET",
