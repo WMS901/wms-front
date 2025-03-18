@@ -4,7 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 
 export default [
-  { ignores: ['dist', 'node_modules', 'build' "src/config.js"] }, // ✅ 검사 제외 폴더 추가
+  { ignores: ['dist', 'node_modules', 'build' 'src/config.js'] }, // ✅ 검사 제외 폴더 추가
   {
     files: ['**/*.{jsx,js}'],
     languageOptions: {
