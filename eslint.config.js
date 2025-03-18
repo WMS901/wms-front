@@ -1,7 +1,7 @@
-import js from '@eslint/js'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
+import js from '@eslint/js';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
 
 export default [
   { ignores: ['dist', 'node_modules', 'build'] }, // ✅ 검사 제외 폴더 추가
@@ -25,12 +25,7 @@ export default [
         sourceType: 'module',
       },
     },
-    env: {
-      browser: true, // ✅ 브라우저 API 허용 (fetch, alert 등)
-      node: true, // ✅ Node.js API 허용
-      es6: true,
-    },
-    settings: { react: { version: '18.3' } },
+    settings: { react: { version: 'detect' } }, // ✅ React 버전 자동 감지
     plugins: {
       react,
       'react-hooks': reactHooks,
@@ -46,9 +41,10 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
-      "no-unused-vars": "warn", // ✅ 사용되지 않는 변수 경고
-      "react/prop-types": "off", // ✅ PropTypes 관련 오류 무시
-      "no-undef": "off", // ✅ fetch, alert, API_URL 미정의 오류 해결
+      "react/react-in-jsx-scope": "off", // ✅ JSX에서 React 자동 인식
+      "react/prop-types": "off", // ✅ PropTypes 검증 비활성화
+      "no-unused-vars": "warn", // ✅ 사용하지 않는 변수 경고
+      "no-undef": "off", // ✅ fetch, API_URL 미정의 오류 해결
     },
   },
-]
+];

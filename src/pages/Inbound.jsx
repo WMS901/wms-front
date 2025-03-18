@@ -3,7 +3,7 @@ import "../styles/Inventory.css"; // ✅ 재고 관리와 같은 스타일 적�
 
 const Inbound = () => {
   const [inboundItems, setInboundItems] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     fetchInboundItems();
