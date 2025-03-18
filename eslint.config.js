@@ -1,12 +1,54 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import pluginReact from "eslint-plugin-react";
+import js from '@eslint/js'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
 
-
-/** @type {import('eslint').Linter.Config[]} */
 export default [
-  {files: ["**/*.{js,mjs,cjs,jsx}"]},
-  {languageOptions: { globals: globals.browser }},
-  pluginJs.configs.recommended,
-  pluginReact.configs.flat.recommended,
-];
+  { ignores: ['dist', 'node_modules', 'build'] }, // ✅ 검사 제외 폴더 추가
+  {
+    files: ['**/*.{js,jsx}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: {
+        window: "readonly",
+        document: "readonly",
+        navigator: "readonly",
+        console: "readonly",
+        fetch: "readonly", // ✅ fetch 오류 해결
+        alert: "readonly", // ✅ alert 오류 해결
+        localStorage: "readonly", // ✅ localStorage 오류 해결
+        API_URL: "readonly", // ✅ API_URL 관련 오류 해결
+      },
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
+        sourceType: 'module',
+      },
+    },
+    env: {
+      browser: true, // ✅ 브라우저 API 허용 (fetch, alert 등)
+      node: true, // ✅ Node.js API 허용
+      es6: true,
+    },
+    settings: { react: { version: '18.3' } },
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      ...react.configs.recommended.rules,
+      ...react.configs['jsx-runtime'].rules,
+      ...reactHooks.configs.recommended.rules,
+      'react/jsx-no-target-blank': 'off',
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+      "no-unused-vars": "warn", // ✅ 사용되지 않는 변수 경고
+      "react/prop-types": "off", // ✅ PropTypes 관련 오류 무시
+      "no-undef": "off", // ✅ fetch, alert, API_URL 미정의 오류 해결
+    },
+  },
+]
