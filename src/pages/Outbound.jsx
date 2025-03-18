@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Inventory.css"; // ✅ 재고 관리와 같은 스타일 적용
+import "../styles/Inventory.css";
 
 const Outbound = () => {
   const [outboundItems, setOutboundItems] = useState([]);
