@@ -3,12 +3,13 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    "import.meta.env.VITE_API_BASE_URL": JSON.stringify(process.env.VITE_API_BASE_URL),
+  },
   server: {
     proxy: {
       "/api": {
-        target: "https://api.sol-wms.store",
-        // target: "http://localhost:8081",
-        //target: "http://195.168.9.111:1040",
+        target: process.env.VITE_API_BASE_URL || "http://localhost:3000",
         changeOrigin: true,
         secure: false,
       },
