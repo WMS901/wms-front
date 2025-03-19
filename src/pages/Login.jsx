@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import API_BASE_URL from "../config";
 import "../styles/login.css"; // ✅ 스타일 파일 추가
 
 const Login = () => {
@@ -14,7 +15,7 @@ const Login = () => {
     setErrorMessage(""); // ✅ 이전 오류 메시지 초기화
 
     try {
-      const response = await fetch("/api/user/login", {
+      const response = await fetch( `${API_BASE_URL}/api/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

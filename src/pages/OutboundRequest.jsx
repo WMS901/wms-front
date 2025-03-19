@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../config";
 import "../styles/OutboundRequest.css"; // ✅ 스타일 적용
 
 const OutboundRequest = ({ selectedItem }) => {
@@ -26,7 +27,7 @@ const OutboundRequest = ({ selectedItem }) => {
     }
 
     try {
-      const response = await fetch("/api/outbound", {
+      const response = await fetch( `${API_BASE_URL}/api/outbound`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/register.css"; // ✅ 스타일 파일 추가
+import API_BASE_URL from "../config";
+import "../styles/register.css";
 
-const Register = () => {
+const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -25,13 +26,12 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch("/api/user/register", {
+      const response = await fetch(`${API_BASE_URL}/api/user/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: formData.name,
           email: formData.email,
           password: formData.password,
         }),
@@ -50,7 +50,7 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container"> {/* ✅ 수정된 클래스명 */}
+    <div className="register-container">
       <div className="form-box">
         <h2>회원가입</h2>
         {error && <p className="error">{error}</p>}
@@ -68,4 +68,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Signup;
