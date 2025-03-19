@@ -26,24 +26,46 @@ const Inbound = () => {
     }
   };
 
+  // const confirmInbound = async (sku) => {
+  //   try {
+  //     const response = await fetch("/api/inbound/", {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ confirmed: true }),
+  //     });
+
+  //     if (!response.ok) throw new Error("입고 확정 실패");
+
+  //     // ✅ UI 업데이트: 해당 항목을 리스트에서 제거
+  //     setInboundItems((prevItems) => prevItems.filter((item) => item.sku !== sku));
+  //   } catch (error) {
+  //     console.error("🚨 오류 발생:", error);
+  //   }
+  // };
+
   const confirmInbound = async (sku) => {
     try {
-      const response = await fetch("/api/inbound/", {
+      const response = await fetch(`${API_BASE_URL}/api/inbound/${sku}/confirm`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ confirmed: true }),
       });
-
+  
       if (!response.ok) throw new Error("입고 확정 실패");
-
+  
+      console.log(`📩 입고 확정 완료: SKU ${sku}`);
+  
       // ✅ UI 업데이트: 해당 항목을 리스트에서 제거
       setInboundItems((prevItems) => prevItems.filter((item) => item.sku !== sku));
     } catch (error) {
       console.error("🚨 오류 발생:", error);
     }
   };
+  
 
   return (
     <div className="inventory-container">
