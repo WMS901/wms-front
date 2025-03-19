@@ -60,7 +60,7 @@ const Login = () => {
         </form>
         {errorMessage && <p className="error-message">⚠️ {errorMessage}</p>} {/* ✅ 오류 메시지 표시 */}
         <p>
-          계정이 없으신가요? <Link to="/register">회원가입</Link>
+          계정이 없으신가요? <Link to="/signup">회원가입</Link>
         </p>
       </div>
     </div>
