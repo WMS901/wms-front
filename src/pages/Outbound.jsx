@@ -13,7 +13,7 @@ const Outbound = () => {
 
   const fetchOutboundItems = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/outbound`);
+      const response = await fetch(`${API_BASE_URL}/api/outbound`);
       if (!response.ok) throw new Error("데이터 불러오기 실패");
 
       const data = await response.json();
@@ -28,7 +28,7 @@ const Outbound = () => {
 
   const confirmOutbound = async (outboundId) => {
     try {
-      const response = await fetch(`${API_URL}/api/outbound/${outboundId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/outbound/${outboundId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
