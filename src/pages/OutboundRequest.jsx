@@ -11,6 +11,7 @@ const OutboundRequest = () => {
   const [quantity, setQuantity] = useState("");
 
   useEffect(() => {
+    console.log("📡 selectedItem 데이터:", selectedItem);
     if (selectedItem) {
       setQuantity("");
     }
