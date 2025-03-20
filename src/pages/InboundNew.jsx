@@ -21,11 +21,20 @@ const InboundNew = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+    const token = localStorage.getItem("token"); // JWT 가져오기와서 인증하기
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+      return;
+    }
+
     try {
       const response = await fetch( `${API_BASE_URL}/api/inbound`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` // JWT 포함
         },
         body: JSON.stringify(formData),
       });
@@ -35,7 +44,7 @@ const InboundNew = () => {
       }
 
       alert("📦 입고 등록 완료!");
-      navigate("/inbound"); // ✅ 입고 등록 후 재고 관리 페이지로 이동
+      navigate("/inbound"); // 입고 등록 후 입고관리 페이지로 이동
     } catch (error) {
       console.error("🚨 오류 발생:", error);
     }
