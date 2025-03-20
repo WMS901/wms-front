@@ -30,25 +30,26 @@ const OutboundRequest = () => {
     }
 
     try {
-      // ✅ `PUT /api/inventory` 요청 (예약 수량 증가만 수행)
-      const updateInventoryResponse = await fetch(`${API_BASE_URL}/api/inventory`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sku: selectedItem?.sku,
-          reservedQuantity: quantity, // 예약 수량 증가
-        }),
-      });
-
+      const updateInventoryResponse = await fetch(
+        `${API_BASE_URL}/api/inventory/${selectedItem?.sku}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            reservedQuantity: quantity,
+          }),
+        }
+      );
+  
       if (!updateInventoryResponse.ok) {
         throw new Error("재고 업데이트 실패");
       }
-
+  
       alert("✅ 예약 수량이 성공적으로 업데이트되었습니다!");
       navigate("/inventory"); // ✅ 재고 페이지로 이동
-
+  
     } catch (error) {
       console.error("🚨 오류 발생:", error);
     }
