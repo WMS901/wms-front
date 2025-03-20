@@ -70,6 +70,10 @@ const OutboundRequest = () => {
           </div>
 
           <div className="info-box">
+            <label className="available-quantity">가능 수량:</label> <span className="available-quantity">{selectedItem.quantity - selectedItem.reservedQuantity}</span>
+          </div>
+
+          <div className="info-box">
             <label>가격:</label> <span>{selectedItem.price}</span>
           </div>
 

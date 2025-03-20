@@ -64,3 +64,8 @@ button {
 button:hover {
   background: #0056b3;
 }
+
+.available-quantity {
+  color: red;
+  font-weight: bold;
+}
