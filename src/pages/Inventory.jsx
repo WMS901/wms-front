@@ -74,7 +74,7 @@ const Inventory = () => {
                     <td>
                       <button
                         className="action-btn"
-                        onClick={() => navigate(`/outbound/${item.sku}`)}
+                        onClick={() => navigate(`/outbound/${item.sku}`, { state: { selectedItem: item } })}
                       >
                         출고 요청
                       </button>

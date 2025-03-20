@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import API_BASE_URL from "../config";
-import "../styles/OutboundRequest.css"; // ✅ 스타일 적용
+import "../styles/OutboundRequest.css";
 
 const OutboundRequest = ({ selectedItem }) => {
   const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(""); // ✅ 출고 수량만 상태 관리
+  const location = useLocation();
+  const selectedItem = location.state?.selectedItem || null;
+  const [quantity, setQuantity] = useState("");
 
-  // ✅ 선택된 상품 정보 로드 (출고 수량만 입력 가능)
+
   useEffect(() => {
     if (selectedItem) {
       setQuantity(""); // ✅ 수량 입력값 초기화
@@ -27,14 +29,14 @@ const OutboundRequest = ({ selectedItem }) => {
     }
 
     try {
-      const response = await fetch( `${API_BASE_URL}/api/outbound`, {
+      const response = await fetch(`${API_BASE_URL}/api/outbound`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          sku: selectedItem.sku,
-          quantity: quantity, // ✅ 수량만 전송
+          sku: selectedItem?.sku, // ✅ selectedItem에서 SKU 가져오기
+          quantity: quantity,
         }),
       });
 
@@ -52,35 +54,39 @@ const OutboundRequest = ({ selectedItem }) => {
   return (
     <div className="outbound-form-container">
       <h1>📦 출고 요청</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="info-box">
-          <label>상품명:</label> <span>{selectedItem?.name || "N/A"}</span>
-        </div>
+      {selectedItem ? ( // ✅ selectedItem이 있을 경우만 표시
+        <form onSubmit={handleSubmit}>
+          <div className="info-box">
+            <label>상품명:</label> <span>{selectedItem.name}</span>
+          </div>
 
-        <div className="info-box">
-          <label>카테고리:</label> <span>{selectedItem?.category || "N/A"}</span>
-        </div>
+          <div className="info-box">
+            <label>카테고리:</label> <span>{selectedItem.category}</span>
+          </div>
 
-        <div className="info-box">
-          <label>공급업체:</label> <span>{selectedItem?.supplier || "N/A"}</span>
-        </div>
+          <div className="info-box">
+            <label>공급업체:</label> <span>{selectedItem.supplier}</span>
+          </div>
 
-        <div className="info-box">
-          <label>위치:</label> <span>{selectedItem?.location || "N/A"}</span>
-        </div>
+          <div className="info-box">
+            <label>위치:</label> <span>{selectedItem.location}</span>
+          </div>
 
-        <label>출고 수량</label>
-        <input
-          type="number"
-          name="quantity"
-          value={quantity}
-          onChange={handleChange}
-          required
-          min="1"
-        />
+          <label>출고 수량</label>
+          <input
+            type="number"
+            name="quantity"
+            value={quantity}
+            onChange={handleChange}
+            required
+            min="1"
+          />
 
-        <button type="submit">출고 등록</button>
-      </form>
+          <button type="submit">출고 등록</button>
+        </form>
+      ) : (
+        <p className="error">🚨 상품 정보를 불러올 수 없습니다.</p>
+      )}
     </div>
   );
 };
