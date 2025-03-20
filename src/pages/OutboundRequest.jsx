@@ -3,16 +3,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 import API_BASE_URL from "../config";
 import "../styles/OutboundRequest.css";
 
-const OutboundRequest = ({ selectedItem }) => {
+const OutboundRequest = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const selectedItem = location.state?.selectedItem || null;
-  const [quantity, setQuantity] = useState("");
+  const location = useLocation();  
+  const selectedItem = location.state?.selectedItem;
 
+  const [quantity, setQuantity] = useState("");
 
   useEffect(() => {
     if (selectedItem) {
-      setQuantity(""); // ✅ 수량 입력값 초기화
+      setQuantity("");
     }
   }, [selectedItem]);
 
@@ -35,7 +35,7 @@ const OutboundRequest = ({ selectedItem }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          sku: selectedItem?.sku, // ✅ selectedItem에서 SKU 가져오기
+          sku: selectedItem?.sku,
           quantity: quantity,
         }),
       });
@@ -45,7 +45,7 @@ const OutboundRequest = ({ selectedItem }) => {
       }
 
       alert("📦 출고 요청 완료!");
-      navigate("/outbound"); // ✅ 출고 등록 후 이동
+      navigate("/outbound");
     } catch (error) {
       console.error("🚨 오류 발생:", error);
     }
@@ -54,7 +54,7 @@ const OutboundRequest = ({ selectedItem }) => {
   return (
     <div className="outbound-form-container">
       <h1>📦 출고 요청</h1>
-      {selectedItem ? ( // ✅ selectedItem이 있을 경우만 표시
+      {selectedItem ? (
         <form onSubmit={handleSubmit}>
           <div className="info-box">
             <label>상품명:</label> <span>{selectedItem.name}</span>
