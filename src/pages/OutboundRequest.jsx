@@ -30,23 +30,25 @@ const OutboundRequest = () => {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/outbound`, {
-        method: "POST",
+      // ✅ `PUT /api/inventory` 요청 (예약 수량 증가만 수행)
+      const updateInventoryResponse = await fetch(`${API_BASE_URL}/api/inventory`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           sku: selectedItem?.sku,
-          quantity: quantity,
+          reservedQuantity: quantity, // 예약 수량 증가
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("출고 요청 실패");
+      if (!updateInventoryResponse.ok) {
+        throw new Error("재고 업데이트 실패");
       }
 
-      alert("📦 출고 요청 완료!");
-      navigate("/outbound");
+      alert("✅ 예약 수량이 성공적으로 업데이트되었습니다!");
+      navigate("/inventory"); // ✅ 재고 페이지로 이동
+
     } catch (error) {
       console.error("🚨 오류 발생:", error);
     }
@@ -70,7 +72,10 @@ const OutboundRequest = () => {
           </div>
 
           <div className="info-box">
-            <label className="available-quantity">가능 수량:</label> <span className="available-quantity">{(selectedItem?.quantity || 0) - (selectedItem?.reservedQuantity || 0)}</span>
+            <label className="available-quantity">가능 수량:</label> 
+            <span className="available-quantity">
+              {(selectedItem?.quantity || 0) - (selectedItem?.reservedQuantity || 0)}
+            </span>
           </div>
 
           <div className="info-box">
@@ -89,7 +94,7 @@ const OutboundRequest = () => {
             <label>등록일:</label> <span>{selectedItem.createdAt}</span>
           </div>
 
-          <label>출고 수량</label>
+          <label>출고 요청 수량</label>
           <input
             type="number"
             name="quantity"
@@ -99,7 +104,7 @@ const OutboundRequest = () => {
             min="1"
           />
 
-          <button type="submit">출고 등록</button>
+          <button type="submit">출고 요청</button>
         </form>
       ) : (
         <p className="error">🚨 상품 정보를 불러올 수 없습니다.</p>
