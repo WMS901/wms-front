@@ -24,8 +24,8 @@ const InboundNew = () => {
 
     const token = localStorage.getItem("token"); // JWT 가져오기와서 인증하기
     if (!token) {
-      alert("로그인이 필요합니다.");
-      navigate("/login");
+      alert("인증실패.");
+      //navigate("/login");
       return;
     }
 
