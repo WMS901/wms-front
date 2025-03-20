@@ -66,11 +66,23 @@ const OutboundRequest = () => {
           </div>
 
           <div className="info-box">
+            <label>수량:</label> <span>{selectedItem.quantity}</span>
+          </div>
+
+          <div className="info-box">
+            <label>가격:</label> <span>{selectedItem.price}</span>
+          </div>
+
+          <div className="info-box">
             <label>공급업체:</label> <span>{selectedItem.supplier}</span>
           </div>
 
           <div className="info-box">
             <label>위치:</label> <span>{selectedItem.location}</span>
+          </div>
+
+          <div className="info-box">
+            <label>등록일:</label> <span>{selectedItem.createdAt}</span>
           </div>
 
           <label>출고 수량</label>
