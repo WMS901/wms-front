@@ -70,7 +70,7 @@ const OutboundRequest = () => {
           </div>
 
           <div className="info-box">
-            <label className="available-quantity">가능 수량:</label> <span className="available-quantity">{selectedItem.quantity - selectedItem.reservedQuantity}</span>
+            <label className="available-quantity">가능 수량:</label> <span className="available-quantity">{(selectedItem?.quantity || 0) - (selectedItem?.reservedQuantity || 0)}</span>
           </div>
 
           <div className="info-box">
