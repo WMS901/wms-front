@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API_BASE_URL from "../config";
+import apiClient from "../api/apiClient"; 
 import "../styles/Inventory.css";
-import axios from "axios";
 
 const Outbound = () => {
   const [outboundItems, setOutboundItems] = useState([]);
