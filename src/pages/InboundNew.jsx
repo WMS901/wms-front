@@ -21,23 +21,29 @@ const InboundNew = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("token"); // JWT 가져오기
+    console.log("📌 로컬 스토리지에서 가져온 JWT:", token); // ✅ JWT 확인
 
-    const token = localStorage.getItem("token"); // JWT 가져오기와서 인증하기
     if (!token) {
-      alert("인증실패.");
+      alert("인증 실패: 로그인 후 다시 시도하세요.");
       //navigate("/login");
       return;
     }
 
     try {
-      const response = await fetch( `${API_BASE_URL}/api/inbound`, {
+      console.log("📌 API 요청 시작: ", `${API_BASE_URL}/api/inbound`);
+      const response = await fetch(`${API_BASE_URL}/api/inbound`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}` // JWT 포함
+          "Authorization": `Bearer ${token}`, // ✅ JWT 포함
         },
         body: JSON.stringify(formData),
       });
+
+      console.log("📌 응답 상태 코드:", response.status);
+      const responseData = await response.text();
+      console.log("📌 응답 데이터:", responseData);
 
       if (!response.ok) {
         throw new Error("입고 요청 실패");
