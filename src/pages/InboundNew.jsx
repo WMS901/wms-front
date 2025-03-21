@@ -22,11 +22,11 @@ const InboundNew = () => {
     e.preventDefault();
 
     const token = localStorage.getItem("token"); // JWT 가져오기
-    console.log("📌 로컬 스토리지에서 가져온 JWT:", token); // ✅ JWT 확인
+    console.log("로컬 스토리지에서 가져온 JWT:", token); // ✅ JWT 확인
 
     if (!token) {
       alert("인증 실패: 로그인 후 다시 시도하세요.");
-      navigate("/login");
+      //navigate("/login");
       return;
     }
 
