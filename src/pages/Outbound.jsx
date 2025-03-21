@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import apiClient from "../api/apiClient"; 
+import apiClient from "../utils/apiClient"; 
 import "../styles/Inventory.css";
 
 const Outbound = () => {
