@@ -26,7 +26,7 @@ const InboundNew = () => {
 
     if (!token) {
       alert("인증 실패: 로그인 후 다시 시도하세요.");
-      //navigate("/login");
+      navigate("/login");
       return;
     }
 
