@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import apiClient from "../utils/apiClient"; 
+import API_BASE_URL from "../config";
 import "../styles/Inventory.css";
 
 const Outbound = () => {
@@ -13,8 +13,10 @@ const Outbound = () => {
 
   const fetchOutboundItems = async () => {
     try {
-      const response = await apiClient.get(`/api/outbound`); // ✅ 변경된 API 요청
-      const data = response.data;
+      const response = await fetch(`${API_BASE_URL}/api/outbound`);
+      if (!response.ok) throw new Error("데이터 불러오기 실패");
+
+      const data = await response.json();
       console.log("📦 출고 요청 데이터:", data);
 
       // `content`가 있는지 확인 후 할당, 없으면 `data` 자체를 배열로 가정
@@ -26,9 +28,15 @@ const Outbound = () => {
 
   const confirmOutbound = async (outboundId) => {
     try {
-      const response = await apiClient.put(`/api/outbound/${outboundId}`, { confirmed: true }); // ✅ 변경된 API 요청
+      const response = await fetch(`${API_BASE_URL}/api/outbound/${outboundId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ confirmed: true }),
+      });
 
-      if (!response.status === 200) throw new Error("출고 확정 실패");
+      if (!response.ok) throw new Error("출고 확정 실패");
 
       // ✅ UI 업데이트: 해당 항목을 리스트에서 제거
       setOutboundItems((prevItems) => prevItems.filter((item) => item.outboundId !== outboundId));
