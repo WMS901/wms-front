@@ -33,34 +33,36 @@ const Inbound = () => {
   };
 
   const confirmInbound = async (sku) => {
+    setError(null); // 혹시 잊었을까 봐 에러 초기화
+  
     try {
       const response = await fetch(`${API_BASE_URL}/api/inbound/${sku}/confirm`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", // JWT 없이 요청
         },
         body: JSON.stringify({ confirmed: true }),
       });
-
+  
       if (!response.ok) throw new Error("입고 확정 실패");
-
+  
       const updatedItem = await response.json();
       console.log(`📩 입고 확정 완료: SKU ${sku}`, updatedItem);
-
-      // ✅ UI 업데이트: 해당 SKU의 `confirmed` 상태 변경
+  
       setInboundItems((prevItems) =>
         prevItems.map((item) =>
           item.sku === sku ? { ...item, confirmed: true } : item
         )
       );
-
-      // ✅ 입고 확정 후 최신 데이터 다시 불러오기
-      fetchInboundItems();
+  
+      fetchInboundItems(); // 최신화
     } catch (error) {
       console.error("🚨 오류 발생:", error);
       setError(error.message);
     }
   };
+  
+  
 
   return (
     <div className="inventory-container">
