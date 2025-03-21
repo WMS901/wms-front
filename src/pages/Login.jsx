@@ -27,7 +27,7 @@ const Login = () => {
         console.log("📌 서버 응답 데이터:", data); //응답 확인
 
         if (response.ok && data.accessToken) {
-            localStorage.setItem("token", data.accessToken); // 수정: accessToken 저장
+            localStorage.setItem("accessToken", data.accessToken); // 수정: accessToken 저장
             console.log("JWT 저장 완료:", data.accessToken); //  저장 확인 로그
             navigate("/inventory");
         } else {
