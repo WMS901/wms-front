@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/sidebar.css";
 
@@ -7,12 +6,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
   return (
     <aside className={`sidebar ${isOpen ? "expanded" : "collapsed"}`}>
-      {/* ✅ 햄버거 버튼 (사이드바 안에 배치) */}
       <button className="hamburger-btn" onClick={() => setIsOpen(!isOpen)}>
         ☰
       </button>
 
-      {/* ✅ 사이드바 메뉴 (토글됨) */}
       {isOpen && (
         <>
           <h1 className="sidebar-title">📦 WMS 메뉴</h1>

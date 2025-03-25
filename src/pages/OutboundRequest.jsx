@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "../styles/OutboundRequest.css"; // ✅ 스타일 적용
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import API_BASE_URL from "../config";
+import "../styles/OutboundRequest.css";
 
-const OutboundRequest = ({ selectedItem }) => {
+const OutboundRequest = () => {
   const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(""); // ✅ 출고 수량만 상태 관리
+  const location = useLocation();  
+  const selectedItem = location.state?.selectedItem;
 
-  // ✅ 선택된 상품 정보 로드 (출고 수량만 입력 가능)
+  const [quantity, setQuantity] = useState("");
+
   useEffect(() => {
+    console.log("📡 selectedItem 데이터:", selectedItem);
     if (selectedItem) {
-      setQuantity(""); // ✅ 수량 입력값 초기화
+      setQuantity("");
     }
   }, [selectedItem]);
 
@@ -26,23 +30,26 @@ const OutboundRequest = ({ selectedItem }) => {
     }
 
     try {
-      const response = await fetch("/api/outbound", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sku: selectedItem.sku,
-          quantity: quantity, // ✅ 수량만 전송
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("출고 요청 실패");
+      const updateInventoryResponse = await fetch(
+        `${API_BASE_URL}/api/inventory/${selectedItem?.sku}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            reservedQuantity: quantity,
+          }),
+        }
+      );
+  
+      if (!updateInventoryResponse.ok) {
+        throw new Error("재고 업데이트 실패");
       }
-
-      alert("📦 출고 요청 완료!");
-      navigate("/outbound"); // ✅ 출고 등록 후 이동
+  
+      alert("✅ 예약 수량이 성공적으로 업데이트되었습니다!");
+      navigate("/inventory"); // ✅ 재고 페이지로 이동
+  
     } catch (error) {
       console.error("🚨 오류 발생:", error);
     }
@@ -51,35 +58,58 @@ const OutboundRequest = ({ selectedItem }) => {
   return (
     <div className="outbound-form-container">
       <h1>📦 출고 요청</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="info-box">
-          <label>상품명:</label> <span>{selectedItem?.name || "N/A"}</span>
-        </div>
+      {selectedItem ? (
+        <form onSubmit={handleSubmit}>
+          <div className="info-box">
+            <label>상품명:</label> <span>{selectedItem.name}</span>
+          </div>
 
-        <div className="info-box">
-          <label>카테고리:</label> <span>{selectedItem?.category || "N/A"}</span>
-        </div>
+          <div className="info-box">
+            <label>카테고리:</label> <span>{selectedItem.category}</span>
+          </div>
 
-        <div className="info-box">
-          <label>공급업체:</label> <span>{selectedItem?.supplier || "N/A"}</span>
-        </div>
+          <div className="info-box">
+            <label>수량:</label> <span>{selectedItem.quantity}</span>
+          </div>
 
-        <div className="info-box">
-          <label>위치:</label> <span>{selectedItem?.location || "N/A"}</span>
-        </div>
+          <div className="info-box">
+            <label className="available-quantity">가능 수량:</label> 
+            <span className="available-quantity">
+              {(selectedItem?.quantity || 0) - (selectedItem?.reservedQuantity || 0)}
+            </span>
+          </div>
 
-        <label>출고 수량</label>
-        <input
-          type="number"
-          name="quantity"
-          value={quantity}
-          onChange={handleChange}
-          required
-          min="1"
-        />
+          <div className="info-box">
+            <label>가격:</label> <span>{selectedItem.price}</span>
+          </div>
 
-        <button type="submit">출고 등록</button>
-      </form>
+          <div className="info-box">
+            <label>공급업체:</label> <span>{selectedItem.supplier}</span>
+          </div>
+
+          <div className="info-box">
+            <label>위치:</label> <span>{selectedItem.location}</span>
+          </div>
+
+          <div className="info-box">
+            <label>등록일:</label> <span>{selectedItem.createdAt}</span>
+          </div>
+
+          <label>출고 요청 수량</label>
+          <input
+            type="number"
+            name="quantity"
+            value={quantity}
+            onChange={handleChange}
+            required
+            min="1"
+          />
+
+          <button type="submit">출고 요청</button>
+        </form>
+      ) : (
+        <p className="error">🚨 상품 정보를 불러올 수 없습니다.</p>
+      )}
     </div>
   );
 };

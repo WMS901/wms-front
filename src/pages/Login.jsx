@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import API_BASE_URL from "../config";
 import "../styles/login.css"; // ✅ 스타일 파일 추가
 
 const Login = () => {
@@ -11,30 +12,32 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // ✅ 이전 오류 메시지 초기화
+    setErrorMessage("");
 
     try {
-      const response = await fetch("/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
+        console.log("📌 서버 응답 데이터:", data); //응답 확인
 
-      if (response.ok) {
-        localStorage.setItem("token", data.token); // JWT 토큰 저장
-        navigate("/inventory"); // 로그인 성공 시 재고관리 페이지로 이동
-      } else {
-        setErrorMessage(data.message || "로그인 실패"); // ✅ 오류 메시지 표시
-      }
+        if (response.ok && data.accessToken) {
+            localStorage.setItem("accessToken", data.accessToken); // 수정: accessToken 저장
+            console.log("JWT 저장 완료:", data.accessToken); //  저장 확인 로그
+            navigate("/inventory");
+        } else {
+            setErrorMessage(data.message || "로그인 실패");
+        }
     } catch (error) {
-      setErrorMessage("서버 오류. 다시 시도해주세요.");
-      console.error("로그인 오류:", error);
+        setErrorMessage("서버 오류. 다시 시도해주세요.");
+        console.error("🚨 로그인 오류:", error);
     }
-  };
+};
 
   return (
     <div className="login-container">
@@ -57,9 +60,9 @@ const Login = () => {
           />
           <button type="submit">로그인</button>
         </form>
-        {errorMessage && <p className="error-message">⚠️ {errorMessage}</p>} {/* ✅ 오류 메시지 표시 */}
+        {errorMessage && <p className="error-message">⚠️ {errorMessage}</p>}
         <p>
-          계정이 없으신가요? <Link to="/register">회원가입</Link>
+          계정이 없으신가요? <Link to="/signup">회원가입</Link>
         </p>
       </div>
     </div>

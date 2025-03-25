@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Inventory.css"; // ✅ 스타일 추가
+import API_BASE_URL from "../config";
+import "../styles/Inventory.css";
 
 const Inventory = () => {
   const [inventoryData, setInventoryData] = useState([]);
@@ -13,7 +14,7 @@ const Inventory = () => {
   const fetchInventory = async () => {
     try {
       console.log("🔍 조회 버튼 클릭됨!");
-      const apiUrl = "/api/inventory";
+      const apiUrl = `${API_BASE_URL}/api/inventory`;
       console.log("📡 API 요청 URL:", apiUrl);
       const response = await fetch(apiUrl, {
         method: "GET",
@@ -73,7 +74,7 @@ const Inventory = () => {
                     <td>
                       <button
                         className="action-btn"
-                        onClick={() => navigate(`/outbound/${item.sku}`)}
+                        onClick={() => navigate(`/outbound/${item.sku}`, { state: { selectedItem: item } })}
                       >
                         출고 요청
                       </button>

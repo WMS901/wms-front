@@ -1,20 +1,20 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 import Layout from "./components/Layout";
 import Inventory from "./pages/Inventory";
 import InboundNew from "./pages/InboundNew";
 import Inbound from "./pages/Inbound";
 import Outbound from "./pages/Outbound";
 import OutboundRequest from "./pages/OutboundRequest";
-import Login from "./pages/Login";
-import Register from "./pages/Register";  // ✅ 회원가입 추가
 
 const App = () => {
   return (
     <Router>
       <Routes>
         {/* ✅ 로그인과 회원가입은 Layout 적용 X (전체 페이지 차지해야 함) */}
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
 
         {/* ✅ 나머지는 Layout 안에서 표시 */}
         <Route

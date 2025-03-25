@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../config";
 import "../styles/InboundNew.css"; // ✅ 스타일 추가
 
 const InboundNew = () => {
@@ -21,7 +22,7 @@ const InboundNew = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/inbound", {
+      const response = await fetch( `${API_BASE_URL}/api/inbound`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
