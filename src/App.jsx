@@ -22,7 +22,7 @@ const App = () => {
           element={
             <Layout>
               <Routes>
-                <Route path="/" element={<Navigate to="/inventory" />} />
+                <Route path="/" element={<Navigate to="/login" />} />
                 <Route path="/inventory" element={<Inventory />} />
                 <Route path="/inbound" element={<Inbound />} />
                 <Route path="/inbound/new" element={<InboundNew />} />
