@@ -45,7 +45,8 @@ const Signup = () => {
         setError(data.message || "회원가입 실패");
       }
     } catch (err) {
-      setError("서버 오류 발생");
+      setError("이미 존재하는 계정입니다.");
+      <Link to="/login">로그인</Link>
     }
   };
 
