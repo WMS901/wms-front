@@ -5,8 +5,6 @@ import "../styles/Inventory.css";
 
 const Inventory = () => {
   const [inventoryData, setInventoryData] = useState([]);
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,32 +13,26 @@ const Inventory = () => {
 
   const fetchInventory = async () => {
     try {
+      console.log("🔍 조회 버튼 클릭됨!");
       const apiUrl = `${API_BASE_URL}/api/inventory`;
+      console.log("📡 API 요청 URL:", apiUrl);
       const response = await fetch(apiUrl, {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        }
       });
-      if (!response.ok) throw new Error("조회 실패");
+
+      if (!response.ok) {
+        throw new Error("조회 실패");
+      }
+
       const data = await response.json();
+      console.log("📥 API 응답 데이터:", data);
+
       setInventoryData(data.content || []);
     } catch (error) {
       console.error("🚨 오류 발생:", error);
-    }
-  };
-
-  //요청 보내기!
-  const handleAsk = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/mcp-inbound/ask`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
-      });
-      const result = await response.json();
-      setAnswer(result.answer || "응답 없음");
-    } catch (error) {
-      console.error("❌ 질문 실패:", error);
-      setAnswer("GPT 요청 실패");
     }
   };
 
@@ -48,27 +40,8 @@ const Inventory = () => {
     <div className="inventory-container">
       <main className="inventory-content">
         <h1>📦 재고 관리</h1>
-                {/* GPT 자연어 질문 영역 추가 */}
-                <div className="gpt-question-wrapper">
-          <h3>🤖 AI 재고 질문</h3>
-          <button className="action-btn" onClick={handleAsk}>
-            질문하기
-          </button>
-          <textarea
-            className="gpt-input"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            placeholder="예: '안녕하세요~ 무엇을 도와드릴까요? 저는 입고 확정된 재고에 대해 학습돼있습니다.'"
-          />
 
-          {answer && (
-            <div className="gpt-response">
-              <strong>🧠 GPT 응답:</strong>
-              <p>{answer}</p>
-            </div>
-          )}
-        </div>
-
+        {/* ✅ 테이블 직접 포함 */}
         <div className="table-wrapper">
           <table className="inventory-table">
             <thead>
